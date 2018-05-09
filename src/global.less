@@ -1,0 +1,75 @@
+@import "~antd/lib/style/themes/default";
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+.media-breakpoint-up(@name,@rules) {
+  @min: "screen-@{name}-max";
+  // @if $min {
+  @media (min-width: @@min) {
+    @rules();
+  }
+  // } @else {
+  //   @content;
+  // }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+.media-breakpoint-down(@name, @content) {
+  @max: "screen-@{name}-min";
+  //  @if $max {
+  @media (max-width: @@max) {
+    @content();
+  }
+  // } @else {
+  //   @content;
+  // }
+}
+
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+.media-breakpoint-only(@name, @content) {
+  .media-breakpoint-up(@name, @content) {
+    .media-breakpoint-down(@name, @content) {
+      @content();
+    }
+  }
+}
+
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+.media-breakpoint-between(@lower, @upper, @name, @content) {
+  .media-breakpoint-up(@lower, @name) {
+    .media-breakpoint-down(@upper, @name) {
+      @content();
+    }
+  }
+}
+
+html, body, :global(#root) {
+  height: 100%;
+}
+
+.ant-layout{
+  min-height: 100%;
+}
+
+.container, .container-fluid {
+  width: 100%;
+  padding-right: 3.5rem;
+  padding-left: 3.5rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container {
+  .media-breakpoint-up('xs', { max-width: @screen-xs*0.9375; });
+  .media-breakpoint-up('sm', { max-width: @screen-sm*0.9375; });
+  .media-breakpoint-up('md', { max-width: @screen-md*0.9375; });
+  .media-breakpoint-up('lg', { max-width: @screen-lg*0.9375; });
+  .media-breakpoint-up('xl', { max-width: @screen-xl*0.9375; });
+}
+
+body{
+  -webkit-font-smoothing: subpixel-antialiased;
+}
