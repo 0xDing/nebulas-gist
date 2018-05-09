@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Alert } from 'antd';
+import { Card, Button, Alert, Divider } from 'antd';
 import { createGist } from "../utils/request";
 import Editor from "../components/Editor";
 import AES from "crypto-js/aes";
@@ -10,7 +10,7 @@ class IndexPage extends React.Component {
     super(props);
     this.state = {
       filename: '',
-      ext: 'txt',
+      ext: 'js',
       content: '',
       showTips: false
     };
@@ -36,6 +36,13 @@ class IndexPage extends React.Component {
   render(){
     return (
       <div>
+        <Card title="Hottest Gists">
+          <a href="/view/mobile_validator.rb">mobile_validator.rb</a>
+          <Divider type="vertical" />
+          <a href="/view/secret.sql">secret.sql</a>
+          <Divider type="vertical" />
+          <a href="/view/hello_world.txt">hello_world.txt</a>
+        </Card>
         {this.state.showTips && (
           <Alert message={(
             <span><a href={`/view/${this.state.filename}.${this.state.ext}`}>Click here</a> to view after the transaction is complete</span>

@@ -83,7 +83,7 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ext: 'txt',
+      ext: 'js',
       content: ''
     };
   }
